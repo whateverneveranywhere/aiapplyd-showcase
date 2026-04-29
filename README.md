@@ -4,9 +4,9 @@
 
 # AI Applyd
 
-**The AI that applies to jobs while you sleep.**
+**AI that actually gets your job.**
 
-It rewrites your resume for every posting, fills out the screener questions, clicks Submit on Greenhouse, Lever, Ashby, SmartRecruiters, join.com via direct-API, plus Workday, LinkedIn Easy Apply, and the long tail via an AI browser agent. You wake up to interview emails instead of "we regret to inform you."
+The job market is rigged. The ATS kills your resume in 6 seconds, recruiters ghost, and the tools that promise to fix it either spam, hallucinate, or hide a $150 paywall. AI Applyd is the cheat code: real per-job tailoring, real submissions on Greenhouse, Lever, Ashby, SmartRecruiters, and join.com via direct API, an AI browser agent for Workday, LinkedIn Easy Apply, iCIMS, and the long tail. Every submit gets a receipt or a screenshot. Tokens refund when the run isn't your fault.
 
 [![Live](https://img.shields.io/badge/live-aiapplyd.com-orange)](https://aiapplyd.com)
 [![License](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
@@ -25,7 +25,7 @@ I lost my job in February. Three months of runway, a working laptop, and 47 hand
 
 So I wrote a Chrome extension that filled in forms based on a JSON resume. The 20 jobs the bot applied to got 3 callbacks. The 47 I'd done by hand got 1. That ratio is what AI Applyd is now.
 
-The applying-while-you-sleep part is the gimmick. The real product is a filter: you say yes to everything that fits, and only spend time on the conversations that come back.
+Every day you wait, someone less qualified gets your job. The applying-while-you-sleep part is the gimmick. The real product is a filter: you say yes to everything that fits, and only spend time on the conversations that come back.
 
 \- Ava
 
@@ -41,17 +41,20 @@ Live product: **[aiapplyd.com](https://aiapplyd.com)** - free signup, 20K tokens
 
 ## What it does
 
+Application tracker (Teal Plus). ATS score (Jobscan $50). AI cover letters (Simplify $80). Resume tailoring (Rezi). All here. Free tier covers it.
+
 - [x] **ATS resume scoring** - paste a job description or URL, get a 0-100 compatibility score with section-level feedback in 30 seconds
-- [x] **AI resume tailoring** - generates a per-job resume that mirrors keywords without keyword-stuffing, exports to PDF + DOCX
-- [x] **Auto-apply** - direct-API submitters for Greenhouse, Lever, Ashby, SmartRecruiters, join.com. AI browser agent fallback (with Stagehand fastpath selectors for Workday, iCIMS recognition, Ashby microsites, SmartRecruiters, Workable, Breezy) handles LinkedIn Easy Apply, Indeed, and the long tail.
-- [x] **Cover letter generation** - tailored per job, references the company's actual posting, not boilerplate
-- [x] **Interview prep** - company-specific questions pulled from real interview reports, plus generated answers grounded in your resume
-- [x] **Application tracking** - saved through offered, in one dashboard with response-rate analytics
-- [x] **Proof of submission** - proof screenshot on every browser-driven submission, structured submission receipt on direct-API platforms (Greenhouse, Lever, Ashby, SmartRecruiters, join.com). Public wall at [/proof](https://aiapplyd.com/proof)
+- [x] **AI resume tailoring** - per-job rewrite grounded in your real history, no invented skills, no hallucinated metrics. PDF + DOCX export
+- [x] **Auto-apply on 5 direct-API platforms** - Greenhouse, Lever, Ashby, SmartRecruiters, join.com. Structured submission receipt with the ATS-side application ID on every send
+- [x] **AI browser agent for everything else** - Workday, LinkedIn Easy Apply, iCIMS, Workable, Breezy, Recruitee, Indeed, custom career pages. Captcha auto-solve via Browserbase. 2FA escalates to a session live-view link emailed to you
+- [x] **Cover letter generation** - tailored per job, references the actual posting, written in your voice
+- [x] **Interview prep** - company-specific questions pulled from real interview reports, practice answers grounded in your resume
+- [x] **List-view application tracker** - receipts list, not a kanban. Stages: Applied, Callback, Phone Screen, Interview, Offered, Rejected, No Response. Every row has the screener answers we submitted, the match score at the time, the proof screenshot or ATS receipt, and a clear failure reason if a run didn't complete
+- [x] **Submission proof on every apply** - browser-driven runs save a screenshot of the confirmation page. Direct-API runs save a structured receipt. Public anonymised wall at [/proof](https://aiapplyd.com/proof)
 - [x] **Public MCP server** - connect Claude Desktop, Claude Code, Cursor, or ChatGPT and use the tools directly in your AI client ([mcp.aiapplyd.com](https://mcp.aiapplyd.com))
-- [x] **Token refunds on non-user-fault failures** - if a run dies because the page was unreadable, the ATS was down, or the captcha solver was out, tokens go back to your balance automatically
-- [x] **Per-session cost guard** - per-platform spend caps (Workday/Greenhouse $1.50, Lever/Ashby $0.80, generic $1.00). Stuck sessions get killed before they bleed money
-- [x] **Chrome extension** - one-click apply from any job page on any site
+- [x] **Token refunds on non-user-fault failures** - if a run dies because the page was unreadable, the ATS was down, or bot detection blocked the session, tokens go back to your balance automatically
+- [x] **Per-session cost guard** - per-platform spend caps (Workday $1.50, Lever / Ashby $0.80, generic $1.00). Stuck sessions get killed before they bleed money
+- [x] **Anti-fabrication guardrails** - the system refuses to invent job titles, certifications, metrics, or skills not on your resume. If a JD demands something you don't have, the tailor flow surfaces it as a gap instead of forging it
 
 ---
 
@@ -68,25 +71,27 @@ Live product: **[aiapplyd.com](https://aiapplyd.com)** - free signup, 20K tokens
 3. Tailor + generate -> Per-job resume + cover letter, you preview before send
         |
         v
-4. Auto-apply        -> Direct-API submission on Greenhouse/Lever/Ashby/
-   (direct-API or       SmartRecruiters/join.com (returns a structured
-   AI browser agent)    receipt). Everything else routes through the AI
-                        browser agent on Browserbase, which fills the
-                        form and saves a proof screenshot of the
-                        confirmation page.
+4. Auto-apply        -> Direct-API submission on Greenhouse / Lever / Ashby /
+                        SmartRecruiters / join.com returns a STRUCTURED RECEIPT
+                        with the ATS-side application ID. Every other site
+                        (Workday, LinkedIn Easy Apply, iCIMS, Workable, Breezy,
+                        custom career pages) routes through the AI browser
+                        agent on Browserbase, which fills the form, handles
+                        captchas, escalates 2FA, and saves a PROOF SCREENSHOT
+                        of the confirmation page.
         |
         v
 5. Track + follow up -> Every application saved, status updates, recruiter
                         emails matched back to the application
 ```
 
-A bad auto-apply tool will keep clicking buttons in a loop until it submits something broken. A good one knows when to stop. AI Applyd has a per-session cost guard, a stuck-loop fingerprint detector, an off-origin navigation guard, and a confirmation verifier that needs at least 2 of 3 success signals before it marks an apply as sent.
+A bad auto-apply tool keeps clicking buttons in a loop until it submits something broken. A good one knows when to stop. AI Applyd has a per-session cost guard, a stuck-loop fingerprint detector, an off-origin navigation guard, and a confirmation verifier that needs at least 2 of 3 success signals (URL change, success keyword, hidden CSRF state) before it marks an apply as sent.
 
 ---
 
 ## Pricing
 
-Monthly only. No annual lock-in.
+Monthly only. No annual lock-in. No upsell on auto-apply credits hidden behind the subscription.
 
 | Plan | Price | AI applies | ATS scores | Resume tailors | Tokens |
 |------|-------|------------|------------|----------------|--------|
@@ -121,31 +126,35 @@ No SaaS bills above the Cloudflare base. The whole platform runs on the free tie
 
 ## How it compares
 
-|  | AI Applyd | LazyApply | Simplify Copilot | Teal | JobCopilot |
-|--|-----------|-----------|------------------|------|------------|
-| **Price (monthly)** | $39 | ~$8-83 (annual prepay) | ~$80 | $29-49 | $39 |
-| **ATS score before applying** | Yes | No | Basic | Yes | No |
-| **Per-job resume tailoring** | Yes | No | Yes | Manual | Yes |
-| **LinkedIn ban risk** | Low (applies on company site) | High (automates inside LinkedIn) | Medium | None (no auto-apply) | Medium |
-| **Submission proof** | Screenshot on browser-driven, receipt on direct-API | No | No | N/A | No |
+Five competitors, real review data, no pricing-only swipes. Sources: Trustpilot, Reddit, BBB, Chrome Web Store. Full breakdown in [docs/launch/competitor-honest-audit.md](https://github.com/aiapplyd/aiapplyd/blob/main/docs/launch/competitor-honest-audit.md).
 
-Numbers from head-to-head testing with 500+ tracked applications. Mass-apply tools (LazyApply, LockedIn AI) sat at 1.5% callback. Quality-gated AI Applyd reached 14%. Hand-written tailored applications reached 18%, took 5x longer.
+|  | AI Applyd | LazyApply | Simplify | Teal | JobCopilot | Huntr |
+|--|-----------|-----------|----------|------|------------|-------|
+| **Price (monthly)** | $39 | $99-249 lifetime upfront | $39.99 | $29 | $29.90-39.90 | $40 |
+| **Real auto-apply submission** | Yes (5 direct-API + browser agent) | Indeed plugin fails captcha. Only applies to job 1 per page | Autofill only, you click apply | None | Yes, but surfaces fraudulent postings | Autofill only |
+| **ATS score before applying** | Yes | No | No | Yes | No | Yes |
+| **Resume hallucination guards** | Yes (anti-fabrication) | Spams same resume | Heavy editing needed on senior roles | Misspells last names, hallucinates skills | Reddit-flagged fabrications | Misses industry keywords |
+| **Open-ended screener answers** | Yes, in your voice | Drops or fakes | No | No | Hit or miss | No |
+| **Proof of submission** | Screenshot + ATS receipt | No | N/A | N/A | No | N/A |
+| **LinkedIn ban risk** | Low (residential proxies, no script injection) | High (raw browser inside your session) | Low (autofill) | None | Lower (cloud agent) | None (autofill) |
+| **MCP / Claude Desktop** | Yes | No | No | No | No | No |
+| **Refund / billing trust** | Case-by-case, real human reviews | Trustpilot 2.4, refunds nearly impossible | No documented refund path | 7-day trial, denies refunds after day 2 | Duplicate billing complaints | Silent auto-renewal complaints |
 
 ---
 
 ## FAQ
 
 **Will I get banned from LinkedIn?**
-Unlikely. The tools that get accounts banned inject scripts into the LinkedIn page from a Chrome extension. AI Applyd does not do that. When a job lives on the company's own ATS we route through Greenhouse, Workday, Lever, etc. directly. LinkedIn Easy Apply runs through the AI browser agent on Browserbase with residential proxies and human pacing.
+Unlikely. The tools that get accounts banned inject scripts into the LinkedIn page from a Chrome extension. AI Applyd does not do that. When a job lives on the company's own ATS we route through Greenhouse, Lever, Ashby, SmartRecruiters, or join.com directly. LinkedIn Easy Apply runs through the AI browser agent on Browserbase with residential proxies and human pacing.
 
 **Is there really a free tier?**
-Yes. Free Job Seeker plan, no credit card. 20K tokens at signup is enough for one full auto-apply end-to-end so you can see what it actually does before paying.
+Yes. Free Job Seeker plan, no credit card. 20K tokens at signup is enough for one full auto-apply end-to-end so you can see what it actually does before paying. 10 ATS scores, 5 resume tailors, 5 cover letters per month on top.
 
 **Does it apply to jobs without me knowing?**
 Only if you flip Autopilot on. Default mode is manual approval, you preview each application before it sends. About 60% of users stay on manual for the first week then turn it off.
 
 **Where do you store my resume?**
-Cloudflare D1, encrypted in transit (TLS/HTTPS) and encrypted at rest via Cloudflare D1's default at-rest encryption. We do not sell your data. Your resumes, jobs, and application content are never used to train AI Applyd's own models. One-click delete from your dashboard wipes everything.
+Cloudflare D1, encrypted in transit (TLS / HTTPS) and at rest using Cloudflare D1's default at-rest encryption. We do not sell your data. Your resumes, jobs, and application content are never used to train AI Applyd's own models. One-click delete from your dashboard wipes everything.
 
 **Why monthly only, no annual?**
 Because the worst version of this product would be one that gets you locked in for a year and then doesn't have to keep delivering. If we stop being useful you should be able to leave next month.
@@ -153,8 +162,8 @@ Because the worst version of this product would be one that gets you locked in f
 **Can I use it without giving you my LinkedIn password?**
 Yes. We never ask for LinkedIn credentials. When you connect LinkedIn for Easy Apply support, OAuth handles auth and we never see your password.
 
-**Do I need the Chrome extension?**
-No. The web app does everything. The extension is a one-click apply button when you're already browsing job listings.
+**Do I need a Chrome extension?**
+No. The web app does everything. Submissions run on our infrastructure (Browserbase + direct-API), not in your browser tab, so the application looks like a careful human applicant and your laptop doesn't need to stay open all night.
 
 [**See all 30+ FAQs**](./FAQ.md)
 

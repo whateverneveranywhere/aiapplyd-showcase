@@ -17,7 +17,7 @@ This is the public-facing roadmap. For bug reports and feature requests see [CON
 - **Resume PDF + DOCX export**. ATS-aware formatting, proper section headings, no images that break parsers.
 - **Chrome extension** published on Web Store. One-click apply from any job page.
 - **20K free signup tokens**. Reduced from 50K after abuse. Free user gets exactly 1 full auto-apply end-to-end.
-- **Direct-API auto-apply submitters**: Greenhouse, Lever, Ashby, SmartRecruiters, join.com. Plus AI browser agent fallback (with Stagehand fastpath selectors) for Workday, iCIMS recognition, Ashby microsites, SmartRecruiters, Workable, Breezy. LinkedIn Easy Apply and Indeed go through the AI browser agent fallback.
+- **Direct-API auto-apply submitters (5 platforms)**: Greenhouse, Lever, Ashby, SmartRecruiters, join.com. Each returns a structured submission receipt with the ATS-side application ID. AI browser agent fallback (with Stagehand fastpath selectors) covers Workday, iCIMS, Workable, Breezy, Recruitee, custom career pages, LinkedIn Easy Apply, Indeed.
 - **PostHog session replay** on all dashboards. Helps me debug user reports faster than they can describe them.
 - **Better Auth + Google OAuth**. Sign in with Google works, OAuth flow opens in browser, MCP picks up the token automatically.
 
@@ -26,7 +26,7 @@ This is the public-facing roadmap. For bug reports and feature requests see [CON
 ## Building now
 
 - **Interview prep, personalized**. Pull actual interview questions from Glassdoor + Reddit threads about that exact company, generate practice answers using your resume. Currently testing on internal users. Eerily accurate at predicting which questions get asked.
-- **Mobile experience**. Runs in any mobile browser as a responsive web app today. No native iOS/Android app yet; a native shell with push notifications for "you got a callback" is on the table but not committed.
+- **Mobile experience**. Runs in any mobile browser as a responsive web app today (iOS Safari and Android Chrome, add to home screen for native-like UX). No native app yet, no mobile-first claim. A native shell with push notifications for "you got a callback" is on the table but not committed.
 - **Application response tracker**. Match recruiter emails back to the application that triggered them, so the dashboard knows which apps converted.
 - **Apply via direct ATS API where possible**. Skip the browser entirely on Greenhouse / Ashby / Lever where their public APIs accept submissions. Faster, cheaper, more reliable.
 
@@ -47,9 +47,10 @@ This is the public-facing roadmap. For bug reports and feature requests see [CON
 These are open questions. Tell me what you'd want.
 
 - **Team / agency mode**. Career coaches and recruiters using AI Applyd on behalf of their clients. Multi-tenant, billing per seat. Real demand exists. Building it would mean a different product.
+- **Insider-contact email finder**. JobRight ships this and it's the one feature their users genuinely praise. For roles where one warm intro beats 50 cold applications, this is the right tool.
+- **Recruiter outreach mode**. Cold-email mode for the inverse direction: when a recruiter sees your profile and reaches out, draft a reply.
 - **Job alerts via Telegram / Discord / SMS**. Right now alerts go via email. Could route them to chat channels for the people who treat their inbox like a graveyard.
 - **Open-source the resume parser**. The PDF -> structured profile parser is good. Could open-source it. Would help the community, doesn't help me close a deal. Tradeoff.
-- **Browser extension for ATS scoring**. The full extension already does auto-apply. A lighter-weight ATS-score-only extension could acquire users that aren't ready to commit to auto-apply yet.
 - **API for resume scoring**. Some users have asked. Could be a paid endpoint. Not sure the volume justifies the support burden.
 - **Voice mock interviews**. Record yourself answering generated questions, get AI feedback on tone + content. Fun. Not sure it's better than what users already get from text mock interviews.
 

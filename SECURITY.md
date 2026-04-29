@@ -25,10 +25,12 @@ We do not store:
 
 ## Encryption
 
-- **At rest**: Cloudflare D1's default at-rest encryption (managed by Cloudflare).
-- **In transit**: TLS/HTTPS for all connections (browser, API, Browserbase, Stripe webhooks)
-- **Auth tokens**: signed with HS256 + a 32+ char `BETTER_AUTH_SECRET` rotated on incident
+- **In transit**: TLS / HTTPS for all connections (browser, API, Browserbase, Stripe webhooks)
+- **At rest**: Cloudflare D1's default at-rest encryption (managed by Cloudflare)
+- **Auth tokens**: signed with a 32+ char `BETTER_AUTH_SECRET`, rotated on incident
 - **OAuth**: standard Google OAuth flow, tokens stored in D1 by Better Auth
+
+We do not claim AES-256 specifically because the underlying cipher is whatever Cloudflare D1 uses by default. What we promise is what we control: TLS for every connection, no third-party data warehouses, no resume getting piped to a marketing tool.
 
 Access controls and regular reviews. No data sold.
 
@@ -42,6 +44,12 @@ Access controls and regular reviews. No data sold.
 - **Backups**: Cloudflare D1 daily snapshots, retained 30 days, encrypted at rest
 
 We do not soft-archive. When you delete, the row is gone.
+
+---
+
+## Refunds and billing
+
+Refunds are case-by-case. No blanket 30-day money-back. If something legitimately broke on our side, email support@aiapplyd.com and we fix it or refund the cycle. Token refunds on non-user-fault failures (page unreadable, ATS down, bot detection block) are automatic and land back in your balance the same session.
 
 ---
 
